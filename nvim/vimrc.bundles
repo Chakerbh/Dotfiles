@@ -1,0 +1,74 @@
+if &compatible
+  set nocompatible
+end
+
+" Shim command and function to allow migration from Vundle to vim-plug.
+function! VundleToPlug(vundle_command, arg, ...)
+  echom "You are using Vundle's `".a:vundle_command."` command to declare plugins. Dotfiles now uses vim-plug for plugin management. Please rename uses of `".a:vundle_command."` to `Plug`. Plugin was '".a:arg."'."
+  let vim_plug_options = {}
+
+  if a:0 > 0
+    if has_key(a:1, 'name')
+      let name = a:1.name
+      let vim_plug_options.dir = "$HOME/.vim/bundle/".a:1.name
+    endif
+
+    if has_key(a:1, 'rtp')
+      let vim_plug_options.rtp = a:1.rtp
+    endif
+  endif
+
+  Plug a:arg, vim_plug_options
+endfunction
+
+com! -nargs=+  -bar Plugin call VundleToPlug("Plugin", <args>)
+com! -nargs=+  -bar Bundle call VundleToPlug("Bundle", <args>)
+
+call plug#begin('~/.vim/bundle')
+
+" Define bundles via Github repos
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/tComment'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
+"Plug 'neomake/neomake'
+Plug 'flazz/vim-colorschemes'
+Plug 'jlfwong/vim-mercenary'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'zchee/deoplete-jedi', {'for': 'python'}
+Plug 'python-mode/python-mode'
+
+
+Plug 'davidhalter/jedi-vim'
+
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'nvie/vim-flake8'
+
+
+" Snipptes
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+
+" Supertab
+Plug 'ervandew/supertab'
+
+
+Plug 'sheerun/vim-polyglot'
+Plug 'mhinz/vim-signify'
+Plug 'haya14busa/incsearch.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'osyo-manga/vim-over'
+
+Plug 'w0rp/ale'
+Plug 'tpope/vim-dispatch'
+
+Plug 'alvan/vim-closetag'
+Plug 'janko-m/vim-test'
+
+
+call plug#end()
